@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="2306016" author="pkomena">
+		<preConditions>
+			<tableExists tableName="vl_data_record"/>
+		</preConditions>
+		<createIndex indexName="idx_patient_code" tableName="vl_data_record">
+			<column name="patient_code"/>
+ 		</createIndex>
+		<createIndex indexName="idx_status" tableName="vl_data_record">
+			<column name="status"/>
+ 		</createIndex>
+		<createIndex indexName="idx_platform_id" tableName="vl_data_record">
+			<column name="platform_id"/>
+ 		</createIndex>
+		<createIndex indexName="idx_site_datim_code" tableName="vl_data_record">
+			<column name="site_datim_code"/>
+ 		</createIndex>
+	</changeSet>
+
+</databaseChangeLog>

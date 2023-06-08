@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet id="23060401" author="pkomena">
+		<createTable schemaName="clinlims" tableName="region">
+			<column name="id" type="int" autoIncrement="true">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="name" type="varchar(100)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet id="23060402" author="pkomena">
+		<createTable schemaName="clinlims" tableName="district">
+			<column name="id" type="int" autoIncrement="true">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="name" type="varchar(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="region_id" type="int">
+				<constraints nullable="true" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet id="23060403" author="pkomena">
+		<createTable schemaName="clinlims" tableName="facilitys">
+			<column name="id" type="int" autoIncrement="true">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="name" type="varchar(200)">
+				<constraints nullable="false" />
+			</column>
+			<column name="datim_code" type="varchar(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="district_id" type="int">
+				<constraints nullable="true" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet id="23060404" author="pkomena">
+	    <loadData file="db/changelog/changes/csv/regions.csv" tableName="region">
+		</loadData>
+	</changeSet>
+	<changeSet id="23060405" author="pkomena">
+	    <loadData file="db/changelog/changes/csv/districts.csv" tableName="district">
+		</loadData>
+	</changeSet>
+	<changeSet id="23060406" author="pkomena">
+	    <loadData file="db/changelog/changes/csv/sites.csv" tableName="facilitys">
+		</loadData>
+	</changeSet>
+</databaseChangeLog>

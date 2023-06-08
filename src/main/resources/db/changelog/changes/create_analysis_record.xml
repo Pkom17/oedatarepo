@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="2305191" author="pkomena">
+		<preConditions>
+		<not>
+			<tableExists tableName="vl_data_record"/>
+		</not>
+		</preConditions>
+		<createTable tableName="vl_data_record">
+			<column name="id" type="int" autoIncrement="true">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="platform" type="varchar(200)">
+				<constraints nullable="false" />
+			</column>
+			<column name="sample_id" type="int">
+				<constraints nullable="false" />
+			</column>
+			<column name="analysis_id" type="int">
+				<constraints nullable="false" />
+			</column>
+			<column name="labno" type="varchar(50)">
+				<constraints nullable="false" />
+			</column>
+			<column name="status" type="varchar(50)">
+				<constraints nullable="false" />
+			</column>
+			<column name="record_status" type="tinyint">
+				<constraints nullable="false" />
+			</column>
+			<column name="patient_subject_number" type="varchar(100)">
+				<constraints nullable="true" />
+			</column>
+			<column name="patient_site_subject_number" type="varchar(100)">
+				<constraints nullable="true" />
+			</column>
+			<column name="patient_code" type="varchar(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="gender" type="varchar(10)">
+				<constraints nullable="false" />
+			</column>
+			<column name="birth_date" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="age_year" type="int">
+				<constraints nullable="false" />
+			</column>
+			<column name="age_month" type="int">
+				<constraints nullable="false" />
+			</column>
+			<column name="hiv_status" type="varchar(10)">
+				<constraints nullable="true" />
+			</column>
+			<column name="regimen" type="varchar(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="study_name" type="varchar(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="site_code" type="varchar(100)">
+				<constraints nullable="true" />
+			</column>
+			<column name="site_name" type="varchar(200)">
+				<constraints nullable="false" />
+			</column>
+			<column name="site_datim_code" type="varchar(100)">
+				<constraints nullable="true" />
+			</column>
+			<column name="site_datim_name" type="varchar(200)">
+				<constraints nullable="true" />
+			</column>
+			<column name="collection_date" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="entry_date" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="reception_date" type="date">
+				<constraints nullable="false" />
+			</column>
+			<column name="completed_date" type="date">
+				<constraints nullable="true" />
+			</column>
+			<column name="released_date" type="date">
+				<constraints nullable="true" />
+			</column>
+			<column name="specimen_type" type="varchar(100)">
+				<constraints nullable="true" />
+			</column>
+			<column name="test_result" type="varchar(100)">
+				<constraints nullable="true" />
+			</column>
+			<column name="test_result_int" type="int">
+				<constraints nullable="true" />
+			</column>
+			<column name="order_reason" type="varchar(100)">
+				<constraints nullable="true" />
+			</column>
+			<column name="vl_pregnancy" type="boolean">
+				<constraints nullable="true" />
+			</column>
+			<column name="vl_suckle" type="boolean">
+				<constraints nullable="true" />
+			</column>
+			<column name="report_name" type="varchar(100)">
+				<constraints nullable="true" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet id="23052503" author="pkomena">
+		<preConditions>
+			<tableExists tableName="vl_data_record"/>
+		</preConditions>
+		<addColumn schemaName="clinlims"
+			tableName="vl_data_record">
+			<column name="created_at" type="datetime">
+				<constraints nullable="true" />
+			</column>
+			<column name="lastupdated_at" type="datetime">
+				<constraints nullable="true" />
+			</column>
+		</addColumn>
+	</changeSet>
+	<changeSet id="23060101" author="pkomena">
+		<preConditions>
+			<tableExists tableName="vl_data_record"/>
+		</preConditions>
+		<addColumn schemaName="clinlims"
+			tableName="vl_data_record">
+			<column name="site_id" type="int">
+				<constraints nullable="true" />
+			</column>
+			<column name="platform_id" type="int">
+				<constraints nullable="true" />
+			</column>
+		</addColumn>
+	</changeSet>
+	<changeSet id="23060102" author="pkomena">
+		<preConditions>
+			<tableExists tableName="vl_data_record"/>
+		</preConditions>
+		<addUniqueConstraint
+			columnNames="labno"
+			constraintName="un_labno"
+			schemaName="clinlims"
+			tableName="vl_data_record"/>
+	</changeSet>
+</databaseChangeLog>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+<!-- <include -->
+<!-- file="/db/changelog/changes/create-person-table-changelog-1.xml" /> -->
+<!-- Old database -->
+<!-- <include file="changes/0.1/init_db.xml" relativeToChangelogFile="true"
+/> <include file="changes/0.1.1/update_schema.xml" relativeToChangelogFile="true"
+/> -->
+<include file="changes/create_analysis_record.xml" relativeToChangelogFile="true"/>
+<include file="changes/create_table_platform.xml" relativeToChangelogFile="true"/>
+<include file="changes/create_table_site.xml" relativeToChangelogFile="true"/>
+<include file="changes/create_index.xml" relativeToChangelogFile="true"/>
+<include file="changes/create_organization.xml" relativeToChangelogFile="true"/>
+<include file="changes/create_table_user.xml" relativeToChangelogFile="true"/>
+
+</databaseChangeLog>

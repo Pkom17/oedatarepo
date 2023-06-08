@@ -1,0 +1,43 @@
+.card-data {
+	font-weight: bolder;
+	font-size: 2em;
+	font-style: italic;
+}
+
+#header{
+	margin-bottom: 50px;
+}
+#layoutSidenav_content{
+	margin-top: 82px;
+}
+
+.input-group > .select2-container--bootstrap {
+    width: auto;
+    flex: 1 1 auto;
+}
+
+.input-group > .select2-container--bootstrap .select2-selection--single {
+    height: 100%;
+    line-height: inherit;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ced4da;
+	padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+    -moz-padding-start: calc(0.75rem - 3px);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.select2-container--bootstrap .select2-selection--single .select2-selection__placeholder {
+    color: #999;
+}
+
+.select2-container--bootstrap .select2-results>.select2-results__options {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.select2-container--bootstrap .select2-results__option--highlighted[aria-selected] {
+    background-color: #5897fb;
+    color: white;
+}

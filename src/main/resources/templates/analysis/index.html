@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head th:replace="fragments/header :: head"> </head>
+  <body class="sb-nav-fixed">
+    <div class="d-flex" id="wrapper">
+      <div th:insert="fragments/side :: side"></div>
+      <div id="page-content-wrapper">
+        <div th:insert="fragments/header :: header"></div>
+        <div class="container-fluid">
+          <div class="card mb-4 mt-2">
+            <div class="card-header">
+              <i class="fas fa-search"></i>
+              Rechercher des demandes
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="row">
+                  <div class="col-lg-3">
+                    <div class="input-group mb-2">
+                      <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01"
+                          >Par Patient:</label
+                        >
+                      </div>
+                      <input
+                        th:value="${selectedPatientCode}"
+                        type="text"
+                        class="form-control form-control-sm"
+                        id="searchByPatientCode"
+                        placeholder="Code PEC VIH"
+                        autocomplete="off"
+                      />
+                      <div class="input-group-append">
+                        <button
+                          class="btn btn-secondary"
+                          id="searchByPatient"
+                          type="button"
+                          onclick="filterByPatient();return false;"
+                        >
+                          Filtrer
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-5">
+                    <div class="input-group mb-2">
+                      <div class="input-group-prepend">
+                        <label class="input-group-text" for="select_site"
+                          >Par site:
+                        </label>
+                      </div>
+                      <select class="form-select" id="select_site">
+                        <option value=""></option>
+                        <option value="0">-- Afficher pour tout --</option>
+                        <option
+                          th:each="site : ${sites}"
+                          th:value="${site.id}"
+                          th:text="${site.name}"
+                          th:selected="${site.id == selectedSite}"
+                        ></option>
+                      </select>
+                      <div class="input-group-append">
+                        <button
+                          class="btn btn-secondary"
+                          id="searchBySite"
+                          type="button"
+                          onclick="filterBySite();return false;"
+                        >
+                          Filtrer
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="input-group mb-1">
+                      <div class="input-group-prepend">
+                        <label class="input-group-text" for="select_platform"
+                          >Par Plateforme:</label
+                        >
+                      </div>
+                      <select class="form-select" id="select_platform">
+                        <option value=""></option>
+                        <option value="0">-- Afficher pour tout --</option>
+                        <option
+                          th:each="platform : ${platforms}"
+                          th:value="${platform.id}"
+                          th:text="${platform.name}"
+                          th:selected="${platform.id == selectedPlatform}"
+                        ></option>
+                      </select>
+                      <div class="input-group-append">
+                        <button
+                          class="btn btn-secondary"
+                          id="searchByPlatform"
+                          type="button"
+                          onclick="filterByPlatform();return false;"
+                        >
+                          Filtrer
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-5">
+                    <div class="input-group mb-1">
+                      <div class="input-group-prepend">
+                        <label class="input-group-text" for="select_status"
+                          >Par Statut de l'échantillon:</label
+                        >
+                      </div>
+                      <select class="form-select" id="select_status">
+                        <option value=""></option>
+                        <option value="0">-- Afficher pour tout --</option>
+                        <option value="1" th:selected="${'1' == selectedStatus}">Saisie</option>
+                        <option value="2" th:selected="${'2' == selectedStatus}">Validation Technique</option>
+                        <option value="3" th:selected="${'3' == selectedStatus}">Validation Biologique</option>
+                        <option value="4" th:selected="${'4' == selectedStatus}">Echec</option>
+                        <option value="5" th:selected="${'5' == selectedStatus}">Non-Conforme</option>
+                        <option value="6" th:selected="${'6' == selectedStatus}">Rejété</option>
+                      </select>
+                      <div class="input-group-append">
+                        <button
+                          class="btn btn-secondary"
+                          id="searchByStatus"
+                          type="button"
+                          onclick="filterByStatus();return false;"
+                        >
+                          Filtrer par Statut
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-8">
+                    <div class="input-group mb-1 mt-2">
+                      <div class="input-group-prepend">
+                        <label class="input-group-text" for="input_start_date"
+                          >Par Intervalle de Date (Prélèvement):</label
+                        >
+                      </div>
+                      <input
+                        th:value="${selectedStartDate}"
+                        type="text"
+                        class="form-control form-control-sm"
+                        id="input_start_date"
+                        placeholder="Date début"
+                        autocomplete="off"
+                      />
+                      <label class="input-group-text"> à </label>
+                      <input
+                        th:value="${selectedEndDate}"
+                        type="text"
+                        class="form-control form-control-sm"
+                        id="input_end_date"
+                        placeholder="Date de fin"
+                        autocomplete="off"
+                      />
+                      <div class="input-group-append">
+                        <button
+                          class="btn btn-secondary"
+                          id="searchByDate"
+                          type="button"
+                          onclick="filterByDate();return false;"
+                        >
+                          Filtrer par Date
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h6 th:if="${totalElements == 0}" class="p-2">Liste vide ...</h6>
+        <div th:if="${totalElements >0}" class="card mb-4 mt-2">
+          <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Liste des demandes d'analyses
+          </div>
+          <div class="card-body">
+            <div class="d-flex flex-row">
+              <div class="p-2">
+                Nombre total d'analyses:
+                <span class="fw-bold">[[${totalElements}]]</span>
+              </div>
+              <div class="p-2">Page [[${currentPage}]] / [[${totalPages}]]</div>
+            </div>
+            <nav aria-label="Pagination" th:if="${totalPages > 0}">
+              <ul class="pagination justify-content-center">
+                <li
+                  class="page-item"
+                  th:classappend="${currentPage == 1} ? 'disabled'"
+                >
+                  <a
+                    th:replace="fragments/paging :: paging(1, '<<', 'Première Page')"
+                  ></a>
+                </li>
+                <li
+                  class="page-item font-weight-bold"
+                  th:classappend="${currentPage == 1} ? 'disabled'"
+                >
+                  <a
+                    th:replace="fragments/paging :: paging(${currentPage - 1}, '<', 'Page Précédente')"
+                  ></a>
+                </li>
+                <li class="page-item disabled" th:if="${currentPage - 2 > 1}">
+                  <a class="page-link" href="#">...</a>
+                </li>
+                <li
+                  class="page-item"
+                  th:classappend="${page == currentPage} ? 'active'"
+                  th:each="page : ${#numbers.sequence(currentPage > 2 ? currentPage - 2 : 1, currentPage + 2 < totalPages ? currentPage + 2 : totalPages)}"
+                >
+                  <a
+                    th:replace="fragments/paging :: paging(${page}, ${page}, 'Page ' + ${page})"
+                  ></a>
+                </li>
+                <li
+                  class="page-item disabled"
+                  th:if="${currentPage + 2 < totalPages}"
+                >
+                  <a class="page-link" href="#">...</a>
+                </li>
+                <li
+                  class="page-item font-weight-bold"
+                  th:classappend="${currentPage == totalPages} ? 'disabled'"
+                >
+                  <a
+                    th:replace="fragments/paging :: paging(${currentPage + 1},'>', 'Prochaine Page')"
+                  ></a>
+                </li>
+                <li
+                  class="page-item"
+                  th:classappend="${currentPage == totalPages} ? 'disabled'"
+                >
+                  <a
+                    th:replace="fragments/paging :: paging(${totalPages}, '>>', 'Dernière Page')"
+                  ></a>
+                </li>
+              </ul>
+            </nav>
+            <table class="table table-sm table-light table-hover table-bordered border-primary table-striped" id="tab_equip">
+              <thead>
+                <th>N°</th>
+                <th>Platforme</th>
+                <th>Code site</th>
+                <th>Nom du site Provenance</th>
+                <th>Lab No</th>
+                <th>Statut de la Demande</th>
+                <th>Code Patient</th>
+                <th>Date de Prélèvement</th>
+                <th>Date de réception</th>
+                <th>Date de saisie - Labo</th>
+                <th>Date de validation Technique</th>
+                <th>Date de validation Biologique</th>
+                <th>Résultat</th>
+                <!-- <th>Options</th> -->
+              </thead>
+              <tbody>
+                <tr th:each="item,idx : ${analysis}">
+                  <td th:text="${idx.count}"></td>
+                  <td th:text="${item.platform}"></td>
+                  <td th:text="${item.siteCode}"></td>
+                  <td th:text="${item.siteName}"></td>
+                  <td th:text="${item.labno}"></td>
+                  <td th:text="${mapStatus[item.status]}"></td>
+                  <td th:text="${item.patientCode}"></td>
+                  <td
+                    th:text="${#dates.format(item.collectionDate, 'dd/MM/yyyy')}"
+                  ></td>
+                  <td
+                    th:text="${#dates.format(item.receptionDate, 'dd/MM/yyyy')}"
+                  ></td>
+                  <td
+                    th:text="${#dates.format(item.entryDate, 'dd/MM/yyyy')}"
+                  ></td>
+                  <td
+                    th:text="${#dates.format(item.completedDate, 'dd/MM/yyyy')}"
+                  ></td>
+                  <td
+                    th:text="${#dates.format(item.releasedDate, 'dd/MM/yyyy')}"
+                  ></td>
+                  <td th:text="${item.testResult}"></td>
+                  <!-- <td></td> -->
+                </tr>
+              </tbody>
+            </table>
+            <nav aria-label="Pagination" th:if="${totalPages > 0}">
+              <ul class="pagination justify-content-center">
+                <li
+                  class="page-item"
+                  th:classappend="${currentPage == 1} ? 'disabled'"
+                >
+                  <a
+                    th:replace="fragments/paging :: paging(1, '<<', 'Première Page')"
+                  ></a>
+                </li>
+                <li
+                  class="page-item font-weight-bold"
+                  th:classappend="${currentPage == 1} ? 'disabled'"
+                >
+                  <a
+                    th:replace="fragments/paging :: paging(${currentPage - 1}, '<', 'Page Précédente')"
+                  ></a>
+                </li>
+                <li class="page-item disabled" th:if="${currentPage - 2 > 1}">
+                  <a class="page-link" href="#">...</a>
+                </li>
+                <li
+                  class="page-item"
+                  th:classappend="${page == currentPage} ? 'active'"
+                  th:each="page : ${#numbers.sequence(currentPage > 2 ? currentPage - 2 : 1, currentPage + 2 < totalPages ? currentPage + 2 : totalPages)}"
+                >
+                  <a
+                    th:replace="fragments/paging :: paging(${page}, ${page}, 'Page ' + ${page})"
+                  ></a>
+                </li>
+                <li
+                  class="page-item disabled"
+                  th:if="${currentPage + 2 < totalPages}"
+                >
+                  <a class="page-link" href="#">...</a>
+                </li>
+                <li
+                  class="page-item font-weight-bold"
+                  th:classappend="${currentPage == totalPages} ? 'disabled'"
+                >
+                  <a
+                    th:replace="fragments/paging :: paging(${currentPage + 1},'>', 'Prochaine Page')"
+                  ></a>
+                </li>
+                <li
+                  class="page-item"
+                  th:classappend="${currentPage == totalPages} ? 'disabled'"
+                >
+                  <a
+                    th:replace="fragments/paging :: paging(${totalPages}, '>>', 'Dernière Page')"
+                  ></a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer
+      class="py-4 bg-light mt-auto"
+      th:insert="fragments/footer :: footer"
+    ></footer>
+    <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+    <script th:src="@{/webjars/jquery-ui/1.13.2/jquery-ui.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/font-awesome/5.15.4/js/all.js}"></script>
+    <script th:src="@{/DataTables/datatables.min.js}"></script>
+    <script th:src="@{/webjars/select2/4.0.13/js/select2.min.js}"></script>
+    <script th:src="@{/js/scripts.js}"></script>
+    <script type="text/javascript">
+      $("#select_site").select2({
+        theme: "bootstrap",
+        placeholder: "-- sites --",
+      });
+      $("#select_platform").select2({
+        theme: "bootstrap",
+        placeholder: "-- platformes --",
+      });
+      $("#select_status").select2({
+        theme: "bootstrap",
+        placeholder: "-- status de l'analyse --",
+      });
+      $("#input_date_type").select2({
+        theme: "bootstrap",
+        placeholder: "-- type de date --",
+      });
+
+      var dateFormat = "dd/mm/yy",
+        from = $("#input_start_date").datepicker({
+          changeMonth: true,
+          changeYear: true,
+          dateFormat: "dd/mm/yy",
+        });
+      var dateFormat = "dd/mm/yy",
+        from = $("#input_end_date").datepicker({
+          changeMonth: true,
+          changeYear: true,
+          dateFormat: "dd/mm/yy",
+        });
+      function getDate(element) {
+        var date;
+        try {
+          date = $.datepicker.parseDate(dateFormat, element.value);
+        } catch (error) {
+          date = null;
+        }
+        return date;
+      }
+    </script>
+  </body>
+</html>
