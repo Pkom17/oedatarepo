@@ -92,6 +92,7 @@ public class VlAnalysisRecordController {
 					r.setId(mapRecord.get(r.getLabno()).getId());
 				}
 				r.setPlatformId(platform.getId());
+				r.setPlatform(platform.getName());
 				if (ObjectUtils.isNotEmpty(r.getSiteDatimCode())) {
 					r.setSiteId(mapDatimCode.getOrDefault(r.getSiteDatimCode(), null));
 				}
