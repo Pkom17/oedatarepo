@@ -4,7 +4,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
-    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+						http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
 	<changeSet id="23060401" author="pkomena">
 		<createTable schemaName="clinlims" tableName="region">
@@ -46,15 +46,40 @@
 		</createTable>
 	</changeSet>
 	<changeSet id="23060404" author="pkomena">
-	    <loadData file="db/changelog/changes/csv/regions.csv" tableName="region">
-		</loadData>
+		<loadData file="db/changelog/changes/csv/regions.csv" tableName="region"> </loadData>
 	</changeSet>
 	<changeSet id="23060405" author="pkomena">
-	    <loadData file="db/changelog/changes/csv/districts.csv" tableName="district">
-		</loadData>
+		<loadData file="db/changelog/changes/csv/districts.csv" tableName="district"> </loadData>
 	</changeSet>
 	<changeSet id="23060406" author="pkomena">
-	    <loadData file="db/changelog/changes/csv/sites.csv" tableName="facilitys">
-		</loadData>
+		<loadData file="db/changelog/changes/csv/sites.csv" tableName="facilitys"> </loadData>
+	</changeSet>
+	<changeSet id="23070507" author="pkomena">
+		<addColumn tableName="facilitys">
+			<column name="diis_code" afterColumn="datim_code" type="varchar(10)">
+				<constraints nullable="true" />
+			</column>
+			<column name="longitude" afterColumn="diis_code" type="float">
+				<constraints nullable="true" />
+			</column>
+			<column name="latitude" afterColumn="longitude" type="float">
+				<constraints nullable="true" />
+			</column>
+		</addColumn>
+	</changeSet>
+	<changeSet id="23070508" author="pkomena">
+		<addColumn tableName="facilitys">
+			<column name="datim_name" afterColumn="datim_code" type="varchar(200)">
+				<constraints nullable="true" />
+			</column>
+			<column name="last_updated_at" type="datetime">
+				<constraints nullable="true" />
+			</column>
+		</addColumn>
+	</changeSet>
+	<changeSet id="23070701" author="pkomena">
+		<sql>
+			SELECT setval('facilitys_id_seq', (SELECT MAX(id) FROM facilitys));
+		</sql>
 	</changeSet>
 </databaseChangeLog>

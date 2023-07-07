@@ -18,5 +18,7 @@
 <include file="changes/create_index.xml" relativeToChangelogFile="true"/>
 <include file="changes/create_organization.xml" relativeToChangelogFile="true"/>
 <include file="changes/create_table_user.xml" relativeToChangelogFile="true"/>
+<include file="changes/create_table_platform_prefix.xml" relativeToChangelogFile="true"/>
+
 
 </databaseChangeLog>

@@ -128,3 +128,9 @@ filterByPlatform = function () {
 
   window.location = parser.href;
 };
+
+exportToCSV = function () {
+  const parser = new URL(window.location);
+  var newLocation = parser.href.replace('analysis','analysis/csv')
+  window.location = newLocation;
+};

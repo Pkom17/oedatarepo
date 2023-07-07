@@ -87,7 +87,7 @@ public class SiteServiceImpl implements SiteService {
 
 	@Override
 	public List<Map<String, Object>> getSiteIdAndNames() {
-		String sql = "SELECT id,name FROM site ORDER BY name ";
+		String sql = "SELECT id,name FROM facilitys ORDER BY name ";
 		List<Map<String, Object>> response = new ArrayList<Map<String, Object>>();
 		try {
 			Query query = em.createNativeQuery(sql);
@@ -142,7 +142,7 @@ public class SiteServiceImpl implements SiteService {
 
 	@Override
 	public List<Map<String, Object>> getSiteIdAndDatimCodes() {
-		String sql = "SELECT id,datim_code FROM site ";
+		String sql = "SELECT id,datim_code FROM facilitys ";
 		List<Map<String, Object>> response = new ArrayList<Map<String, Object>>();
 		try {
 			Query query = em.createNativeQuery(sql);
@@ -161,7 +161,7 @@ public class SiteServiceImpl implements SiteService {
 
 	@Override
 	public Map<String, Integer> getSitesDatimCodeMap() {
-		String sql = "SELECT id,datim_code FROM site ";
+		String sql = "SELECT id,datim_code FROM facilitys ";
 		Map<String, Integer> response = new HashMap<String, Integer>();
 		try {
 			Query query = em.createNativeQuery(sql);

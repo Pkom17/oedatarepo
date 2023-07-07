@@ -73,7 +73,7 @@ public class AppUserController extends BaseController {
 	public String addUser(Model model) {
 		model.addAttribute("userDTO", new UserDTO());
 		model.addAttribute("sites", siteService.getAll());
-		model.addAttribute("districts",districtService.getAll());
+		model.addAttribute("districts", districtService.getAll());
 		return "user/new";
 	}
 
@@ -150,10 +150,10 @@ public class AppUserController extends BaseController {
 	}
 
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	@PostMapping("/update")
-	public String update(Model model, UserDTO userDTO) {
+	@PostMapping("/user_update/{id}")
+	public String update(Model model, @PathVariable Integer id, UserDTO userDTO) {
 		try {
-			AppUser updatedUser = accountService.findUserById(userDTO.getId()).get();
+			AppUser updatedUser = accountService.findUserById(id).orElse(null);
 			if (ObjectUtils.isEmpty(updatedUser)) {
 				model.addAttribute("message_error", "Utilisateur non trouvé");
 				return "user/edit";
@@ -201,7 +201,7 @@ public class AppUserController extends BaseController {
 			updatedUser.setLastUpdatedBy(this.getCurrentUserId());
 			updatedUser.setLastUpdatedAt(new java.util.Date());
 			updatedUser.setRole(userDTO.getRole());
-			accountService.removeAllSites(updatedUser.getEmail());
+			// accountService.removeAllSites(updatedUser.getEmail());
 			appUser = accountService.create(updatedUser, passwordMustBeCrypt);
 
 			// add sites to users
@@ -221,7 +221,7 @@ public class AppUserController extends BaseController {
 			return "user/edit";
 		}
 		model.addAttribute("user", appUser);
-		model.addAttribute("message_success", "Ajout effectué avec succès");
+		model.addAttribute("message_success", "Modification effectuée avec succès");
 		return "user/edit";
 	}
 
@@ -281,7 +281,7 @@ public class AppUserController extends BaseController {
 		}
 		BeanUtils.copyProperties(appUser, userDTO);
 		userDTO.setRepassword(null);
-		model.addAttribute("user", userDTO);
+		model.addAttribute("userDTO", userDTO);
 		return "user/edit";
 	}
 

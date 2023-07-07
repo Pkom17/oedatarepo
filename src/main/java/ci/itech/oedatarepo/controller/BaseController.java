@@ -73,7 +73,7 @@ public class BaseController {
 	}
 
 	protected Map<String, Object> userInfos(Integer id) {
-		AppUser user = this.accountService.findUserById(id).get();
+		AppUser user = this.accountService.findUserById(id).orElse(null);
 		Map<String, Object> userMap = new HashMap<String, Object>();
 		if (ObjectUtils.isNotEmpty(user)) {
 			userMap.put("userId", user.getId());
@@ -84,12 +84,12 @@ public class BaseController {
 			userMap.put("lastLogin", user.getLastLogin());
 			userMap.put("roles", user.getAuthorities());
 			ArrayList<Map<String, Object>> sites = new ArrayList<>();
-			user.getListOfSite().forEach(s -> {
-				Map<String, Object> map = new HashMap<>();
-				map.put("id", s.getId());
-				map.put("name", s.getName());
-				sites.add(map);
-			});
+			// user.getListOfSite().forEach(s -> {
+			// Map<String, Object> map = new HashMap<>();
+			// map.put("id", s.getId());
+			// map.put("name", s.getName());
+			// sites.add(map);
+			// });
 			userMap.put("sites", sites);
 		}
 		return userMap;

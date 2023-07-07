@@ -95,11 +95,6 @@ public class AppUser implements Serializable {
 	@Column(name = "last_updated_by")
 	private Integer lastUpdatedBy;
 
-	@ManyToMany(targetEntity = Site.class)
-	@JoinTable(name = "app_user_has_site", joinColumns = @JoinColumn(name = "app_user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "site_id", referencedColumnName = "id"))
-	@JsonManagedReference
-	private List<Site> listOfSite = new ArrayList<Site>();
-
 	public String getAuthorities() {
 		return this.getRole();
 	}

@@ -2,6 +2,7 @@ package ci.itech.oedatarepo.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,23 +12,31 @@ import ci.itech.oedatarepo.model.VlAnalysisRecord;
 public interface VlAnalysisRecordService {
     VlAnalysisRecord create(VlAnalysisRecord record);
 
-	VlAnalysisRecord update(VlAnalysisRecord record);
+    VlAnalysisRecord update(VlAnalysisRecord record);
 
     List<VlAnalysisRecord> createOrUpdateAll(List<VlAnalysisRecord> recordList);
 
-	VlAnalysisRecord getOne(Integer id);
+    VlAnalysisRecord getOne(Integer id);
 
-	List<VlAnalysisRecord> getAll();
+    List<VlAnalysisRecord> getAll();
 
-	Page<VlAnalysisRecord> getAll(Pageable pageable);
+    Page<VlAnalysisRecord> getAll(Pageable pageable);
 
-    Page<VlAnalysisRecord> getAll(String patientCode,Integer siteId, Integer platformId, String status,  Date startDate, Date endDate,Pageable pageable);
+    Page<VlAnalysisRecord> getAll(String patientCode, Integer siteId, Integer platformId, String status, Date startDate,
+            Date endDate, Pageable pageable);
 
-	int getTotal();
+    List<VlAnalysisRecord> getAll(String patientCode, Integer siteId, Integer platformId, String status, Date startDate,
+            Date endDate);
 
-	boolean delete(Integer id);
+    List<Map<String, Object>> getAllGroupBySite(Integer platformId, Date startDate, Date endDate);
 
-	VlAnalysisRecord findByLabno(String labno);
+    List<Map<String, Object>> getAllGroupByPlatform(Date startDate, Date endDate);
+
+    int getTotal();
+
+    boolean delete(Integer id);
+
+    VlAnalysisRecord findByLabno(String labno);
 
     List<VlAnalysisRecord> findByLabnos(List<String> labnos);
 

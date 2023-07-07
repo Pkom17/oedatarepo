@@ -142,4 +142,20 @@ public class PlatformServiceImpl implements PlatformService {
 		return repository.findByName(name);
 	}
 
+	@Override
+	public Map<String, Integer> getLabPrefixMap() {
+		String sql = "SELECT platform_id,prefix FROM platform_prefix ";
+		Map<String, Integer> response = new HashMap<String, Integer>();
+		try {
+			Query query = em.createNativeQuery(sql);
+			List<Object[]> results = query.getResultList();
+			for (Object[] o : results) {
+				response.put(o[1].toString(), Integer.parseInt(o[0].toString()));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return response;
+	}
+
 }

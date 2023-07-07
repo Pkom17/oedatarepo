@@ -23,9 +23,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//@ToString
+// @ToString
 @Entity
-@Table(name = "site")
+@Table(name = "facilitys")
 public class Site implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -37,13 +37,13 @@ public class Site implements Serializable {
 	@Column(name = "name", nullable = false, length = 255)
 	private String name;
 
-	@Column(name = "diis_code", length = 255,nullable = true)
+	@Column(name = "diis_code", length = 255, nullable = true)
 	private String diisCode;
 
-	@Column(name = "datim_name", length = 255,nullable = true)
+	@Column(name = "datim_name", length = 255, nullable = true)
 	private String datimName;
 
-	@Column(name = "datim_code", length = 255,nullable = true)
+	@Column(name = "datim_code", length = 255, nullable = true)
 	private String datimCode;
 
 	@Column(name = "longitude", nullable = true)
@@ -60,7 +60,7 @@ public class Site implements Serializable {
 	private District district;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "last_updated_at",nullable = true)
+	@Column(name = "last_updated_at", nullable = true)
 	private Date lastUpdatedAt;
 
 	public String toString() {

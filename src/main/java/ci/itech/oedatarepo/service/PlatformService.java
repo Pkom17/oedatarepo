@@ -13,8 +13,10 @@ public interface PlatformService {
 	Platform getOne(int id);
 
 	Platform createOrUpdate(Platform d);
-	
+
 	List<Map<String, Object>> getLabsIdAndNames();
+
+	Map<String, Integer> getLabPrefixMap();
 
 	List<Platform> getAll();
 

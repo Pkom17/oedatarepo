@@ -15,12 +15,12 @@
           <div class="card mb-4 mt-2">
             <div class="card-header">
               <i class="fas fa-plus-square"></i>
-              &nbsp;Ajouter un nouvel utilisateur
+              &nbsp;Modifier un utilisateur
               <a th:href="@{/user}" class="btn  btn-sm btn-success float-end "> Retour à la liste <i class="fas fa-backward"></i> </a>
             </div>
             <div class="card-body">
               <div class="all-form-element-inner">
-                <form th:object="${userDTO}" th:action="@{/user/update}" method="post">
+                <form th:object="${userDTO}" th:action="@{'/user/user_update/'+${userDTO?.id}}" method="post">
                   <p class="error text-danger" th:if="${message_error != null}" th:text="${message_error}"></p>
                   <p class="error text-success" th:if="${message_success != null}" th:text="${message_success}"></p>
                   <div class="row mb-4">
@@ -155,6 +155,7 @@
                         >
                           <option value="USER">USER</option>
                           <option value="ADMIN">ADMIN</option>
+                          <option value="PUSHER">PUSHER</option>
                         </select>
                       </div>
                     </div>

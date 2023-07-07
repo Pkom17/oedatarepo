@@ -6,48 +6,42 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet id="2306015" author="pkomena">
+    <changeSet id="2307051" author="pkomena">
 		<preConditions>
 		<not>
-			<tableExists tableName="platform"/>
+			<tableExists tableName="platform_prefix"/>
 		</not>
 		</preConditions>
-		<createTable tableName="platform">
+		<createTable tableName="platform_prefix">
 			<column name="id" type="int" autoIncrement="true">
 				<constraints primaryKey="true" />
 			</column>
-			<column name="name" type="varchar(200)">
+			<column name="platform_id" type="int">
 				<constraints nullable="false" />
 			</column>
-			<column name="longitude" type="float">
-				<constraints nullable="true" />
+			<column name="prefix" type="varchar(10)">
+				<constraints nullable="false" />
 			</column>
-			<column name="latitude" type="float">
-				<constraints nullable="true" />
-			</column>
-			<column name="last_pushed_at" type="datetime">
-				<constraints nullable="true" />
-			</column>
-			<column name="last_updated_at" type="datetime">
+			<column name="study" type="varchar(100)">
 				<constraints nullable="true" />
 			</column>
 		</createTable>
 	</changeSet>
 
-	<changeSet id="2307053" author="pkomena">
+	<changeSet id="2307052" author="pkomena">
 		<preConditions>
-			<tableExists tableName="platform"/>
+			<tableExists tableName="platform_prefix"/>
 		</preConditions>
-	    <sqlFile path="sql/platform.sql"
+	    <sqlFile path="sql/platform_prefix.sql"
         relativeToChangelogFile="true"/>
 	</changeSet>
 
-	<changeSet  author="pkomena"  id="2307056">  
+	<changeSet  author="pkomena"  id="2307055">  
 		<addUniqueConstraint 
-				columnNames="name"  
-				constraintName="uniq_platform_name"    
+				columnNames="prefix"  
+				constraintName="uniq_prefix"    
 				schemaName="clinlims"  
-				tableName="platform"/>  
+				tableName="platform_prefix"/>  
 	</changeSet>
 
 </databaseChangeLog>
